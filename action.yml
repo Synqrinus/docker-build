@@ -29,9 +29,9 @@ inputs:
     required: false
     default: 'us-west-2'
 outputs:
-  random-number:
-    description: "Random number"
-    value: ${{ steps.random-number-generator.outputs.random-number }}
+  image:
+    description: "The resulting image"
+    value: ${{ steps.login-ecr.outputs.registry }}/${{ inputs.ecr-repository }}:${{ inputs.image-tag }}
 runs:
   using: "composite"
   steps:
