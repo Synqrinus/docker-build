@@ -1,4 +1,4 @@
-# Actipn to build multiarch images
+# Action to build multiarch images
 
 ## Usage
 
