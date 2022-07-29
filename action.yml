@@ -1,5 +1,5 @@
 name: 'Multiplatform docker build'
-description: 'Greet someone'
+description: 'Build multiarch image and push to ecr'
 inputs:
   ecr-repository:
     description: 'ECR repository identifier to push image to'
@@ -35,11 +35,6 @@ outputs:
 runs:
   using: "composite"
   steps:
-
-    - name: Checking out the repo
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
 
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
