@@ -7,11 +7,12 @@ Inside your github action, create this step
     steps:
       
       - name: Using action to build multiarch image
-        uses: Synqrinus/docker-build@v1
+        uses: Synqrinus/docker-build@v5
         with:
             ecr-repository:        # AWS ECR repository identifier
             image-tag:             # Desired image tag
             context:               # (OPTIONAL) Build context (default - '.' )
+            file:                  # Path to Dockerfile (default - './Dockerfile' )
             build-args:            # (OPTIONAL) Build arguments
             platforms:             # (OPTIONAL) Platforms list (default - 'linux/amd64,linux/arm64' )
             aws-access-key-id:     # AWS access key ID

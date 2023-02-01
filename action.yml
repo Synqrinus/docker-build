@@ -11,6 +11,10 @@ inputs:
     description: 'Build context'
     required: false
     default: '.'
+  file:
+    description: 'Dockerfile path'
+    required: false
+    default: './Dockerfile'
   build-args:
     description: 'Build arguments'
     required: false
@@ -69,7 +73,8 @@ runs:
         echo "Platforms: ${{ steps.buildx.outputs.platforms }}"
 
     - name: Push docker multiplatform image
-      uses: docker/build-push-action@v2
+      id: build-push
+      uses: docker/build-push-action@v4
       with:
         build-args: ${{ inputs.build-args }}
         context: ${{ inputs.context }}
@@ -77,3 +82,11 @@ runs:
         push: true
         tags: ${{ steps.login-ecr.outputs.registry }}/${{ inputs.ecr-repository }}:${{ inputs.image-tag }}
 
+    - name: Outputs
+      run: |
+        echo "ImageId"
+        echo "${{ steps.build-push.outputs.imageid }}"
+        echo "Digest"
+        echo "${{ steps.build-push.outputs.digest }}"
+        echo "Metadata:"
+        echo "${{ steps.build-push.outputs.metadata }}"
