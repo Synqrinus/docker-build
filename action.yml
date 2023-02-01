@@ -22,6 +22,10 @@ inputs:
     description: 'Platforms to build to'
     required: false
     default: 'linux/amd64,linux/arm64'
+  provenance:
+    description: 'Provenance parameter'
+    required: false
+    default: 'false'
   aws-access-key-id:
     description: 'AWS access key id'
     required: true
@@ -77,6 +81,7 @@ runs:
       uses: docker/build-push-action@v4
       with:
         build-args: ${{ inputs.build-args }}
+        provenance: ${{ inputs.provenance }}
         context: ${{ inputs.context }}
         platforms: ${{ inputs.platforms }}
         push: true
