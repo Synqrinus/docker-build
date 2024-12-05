@@ -18,6 +18,9 @@ inputs:
   build-args:
     description: 'Build arguments'
     required: false
+  secrets:
+    description: 'Build secrets'
+    required: false
   platforms:
     description: 'Platforms to build to'
     required: false
@@ -56,13 +59,13 @@ runs:
       uses: aws-actions/amazon-ecr-login@v1
 
     - name: Set up QEMU
-      uses: docker/setup-qemu-action@v1
+      uses: docker/setup-qemu-action@v3
       with:
         platforms: arm64
 
     - name: Set up Docker Buildx
       id: buildx
-      uses: docker/setup-buildx-action@v1
+      uses: docker/setup-buildx-action@v3
       with:
         install: true
 
@@ -78,10 +81,11 @@ runs:
 
     - name: Push docker multiplatform image
       id: build-push
-      uses: docker/build-push-action@v5
+      uses: docker/build-push-action@v6
       with:
         build-args: ${{ inputs.build-args }}
         provenance: ${{ inputs.provenance }}
+        secrets: ${{ inputs.secrets }}
         context: ${{ inputs.context }}
         platforms: ${{ inputs.platforms }}
         cache-from: type=gha
