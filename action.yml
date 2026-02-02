@@ -86,13 +86,3 @@ runs:
         platforms: ${{ inputs.platforms }}
         push: true
         tags: ${{ steps.login-ecr.outputs.registry }}/${{ inputs.ecr-repository }}:${{ inputs.image-tag }}
-
-    - name: Outputs
-      shell: bash
-      run: |
-        echo "ImageId"
-        echo "${{ steps.build-push.outputs.imageid }}"
-        echo "Digest"
-        echo "${{ steps.build-push.outputs.digest }}"
-        echo "Metadata:"
-        echo "${{ steps.build-push.outputs.metadata }}"
